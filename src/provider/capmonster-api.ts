@@ -58,7 +58,6 @@ class CapMonster {
 
             await new Promise((resolve) => setTimeout(resolve, this.opts.pollingInterval));
             const result = await this.getResult(response.data.taskId);
-;
             if (result.data.status === "ready") {
                 solved = true;
                 return callback(null, {
