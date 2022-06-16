@@ -62,7 +62,7 @@ class CapMonster {
                 solved = true;
                 return callback(null, {
                     id: response.data.taskId,
-                    text: result.data.solution?.gRecaptchaResponse
+                    text: result.data.solution.gRecaptchaResponse
                 });
             }
         }
