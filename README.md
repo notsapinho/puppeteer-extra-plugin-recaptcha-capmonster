@@ -22,32 +22,30 @@ const CapMonsterProvider = require("puppeteer-extra-plugin-recaptcha-capmonster"
 CapMonsterProvider.use(BuiltinSolutionProviders);
 
 puppeteer.use(
-    RecaptchaPlugin({
-        provider: {
-            id: "capmonster",
-            token: "XXXXXXX" // REPLACE THIS WITH YOUR OWN CAPMONSTER API KEY ⚡
-        },
-        visualFeedback: true // colorize reCAPTCHAs (violet = detected, green = solved)
-    })
+	RecaptchaPlugin({
+		provider: {
+			id: "capmonster",
+			token: "XXXXXXX" // REPLACE THIS WITH YOUR OWN CAPMONSTER API KEY ⚡
+		},
+		visualFeedback: true // colorize reCAPTCHAs (violet = detected, green = solved)
+	})
 );
 
 // puppeteer usage as normal
 puppeteer.launch({ headless: true }).then(async (browser) => {
-    const page = await browser.newPage();
-    await page.goto("https://www.google.com/recaptcha/api2/demo");
+	const page = await browser.newPage();
+	await page.goto("https://www.google.com/recaptcha/api2/demo");
 
-    // That's it, a single line of code to solve reCAPTCHAs 🎉
-    await page.solveRecaptchas();
+	// That's it, a single line of code to solve reCAPTCHAs 🎉
+	await page.solveRecaptchas();
 
-    await Promise.all([
-        page.waitForNavigation(), 
-        page.click(`#recaptcha-demo-submit`)
-    ]);
-    await page.screenshot({ path: "response.png", fullPage: true });
-    await browser.close();
+	await Promise.all([page.waitForNavigation(), page.click(`#recaptcha-demo-submit`)]);
+	await page.screenshot({ path: "response.png", fullPage: true });
+	await browser.close();
 });
 ```
 
 ## Credits
-- Thanks to [berstend](https://github.com/berstend) for the original plugin
-- Thanks to [hanahaneull](https://github.com/hanahaneull) for the capmonster solver
+
+-   Thanks to [berstend](https://github.com/berstend) for the original plugin
+-   Thanks to [hanahaneull](https://github.com/hanahaneull) for the capmonster solver

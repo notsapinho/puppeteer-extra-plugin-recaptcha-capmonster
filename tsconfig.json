@@ -1,18 +1,18 @@
 {
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "baseUrl": ".",
-        "outDir": "dist",
-        "lib": ["ES2015", "ES2016", "ES2017"],
-        "target": "ES2019",
-        "module": "ESNEXT",
-        "moduleResolution": "node",
-        "alwaysStrict": true,
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "declaration": true,
-        "noUnusedLocals": true,
-        "esModuleInterop": true
-    },
-    "include": ["src/*.ts", "src/**/*.ts"]
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
+		"outDir": "dist",
+		"lib": ["ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "DOM"],
+		"target": "ES2019",
+		"module": "ESNEXT",
+		"moduleResolution": "node",
+		"alwaysStrict": true,
+		"sourceMap": true,
+		"resolveJsonModule": true,
+		"declaration": true,
+		"noUnusedLocals": true,
+		"esModuleInterop": true
+	},
+	"include": ["src/*.ts", "src/**/*.ts"]
 }
