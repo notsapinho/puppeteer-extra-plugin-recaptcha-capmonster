@@ -76,5 +76,4 @@ typings/
 .fusebox/
 
 package-lock.json
-dist/
 index.js

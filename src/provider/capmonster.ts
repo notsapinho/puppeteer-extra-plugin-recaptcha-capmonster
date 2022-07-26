@@ -6,8 +6,6 @@ const debug = Debug(`puppeteer-extra-plugin:recaptcha-capmonster:${PROVIDER_ID}`
 
 import Solver from "./capmonster-api";
 
-const solver = new Solver();
-
 const secondsBetweenDates = (before: Date, after: Date) => (after.getTime() - before.getTime()) / 1000;
 
 export default class CapMonsterProvider {
@@ -27,7 +25,7 @@ export default class CapMonsterProvider {
 			const cb = (err: any, result: any) => resolve({ err, result });
 			try {
 				this.solver.setApiKey(token);
-	
+
 				let method = "NoCaptchaTask";
 				if (vendor === "hcaptcha") {
 					method = "HCaptchaTask";
@@ -35,20 +33,20 @@ export default class CapMonsterProvider {
 				if (!this.solver.hasProxy()) {
 					method += "Proxyless";
 				}
-	
+
 				this.solver.decodeReCaptcha(method, url, sitekey, cb);
 			} catch (error) {
 				return resolve({ err: error });
 			}
 		});
-	}
-	
+	};
+
 	getSolutions = async (captchas: types.CaptchaInfo[] = [], token: string = ""): Promise<types.GetSolutionsResult> => {
 		const solutions = await Promise.all(captchas.map((c) => this.getSolution(c, token)));
 		return { solutions, error: solutions.find((s) => !!s.error) };
-	}
-	
-	getSolution = async(captcha: types.CaptchaInfo, token: string): Promise<types.CaptchaSolution> => {
+	};
+
+	getSolution = async (captcha: types.CaptchaInfo, token: string): Promise<types.CaptchaSolution> => {
 		const solution: types.CaptchaSolution = {
 			_vendor: captcha._vendor,
 			provider: PROVIDER_ID
@@ -76,5 +74,5 @@ export default class CapMonsterProvider {
 			solution.error = error.toString();
 		}
 		return solution;
-	}
+	};
 }
