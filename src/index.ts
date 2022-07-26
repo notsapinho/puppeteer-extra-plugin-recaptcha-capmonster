@@ -1,10 +1,16 @@
-import * as CapMonster from "./provider/capmonster";
+import CapMonsterProvider, { PROVIDER_ID } from "./provider/capmonster";
 
 import * as types from "./types/plugin";
 
 class Plugin {
-	static use(providers: types.SolutionProvider[]) {
-		providers.push({ id: CapMonster.PROVIDER_ID, fn: CapMonster.getSolutions });
+	private readonly provider: CapMonsterProvider;
+
+	constructor(provider: CapMonsterProvider) {
+		this.provider = provider;
+	}
+
+	use(providers: types.SolutionProvider[]) {
+		providers.push({ id: PROVIDER_ID, fn: this.provider.getSolutions });
 	}
 }
 

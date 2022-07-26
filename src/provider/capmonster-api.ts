@@ -23,6 +23,8 @@ class CapMonster {
 		this.$http = axios.create({ baseURL: "https://api.capmonster.cloud" });
 	}
 
+	hasProxy = () => this.opts.proxyConfig != null;
+
 	setApiKey = (apiKey: string): string => (this.clientKey = apiKey);
 
 	getBalance = (): Promise<AxiosResponse<types.CapMonsterApiBalanceResult>> =>
@@ -40,12 +42,14 @@ class CapMonster {
 		let solved = false;
 		let retries = 0;
 
+		let proxyConfig = this.opts.proxyConfig != null ? this.proxyConfigDTO(this.opts.proxyConfig) : null;
 		const response = await this.$http.post<types.CapMonsterApiCreateTaskResult>("/createTask", {
 			clientKey: this.clientKey,
 			task: {
 				type: method,
 				websiteURL: websiteURL,
-				websiteKey: websiteKey
+				websiteKey: websiteKey,
+				...proxyConfig,
 			}
 		});
 
@@ -73,6 +77,14 @@ class CapMonster {
 			clientKey: this.clientKey,
 			taskId
 		});
+
+	private proxyConfigDTO = (config: types.ProxyConfig) => ({
+		proxyType: config.type,
+		proxyAddress: config.address,
+		proxyPort: config.port,
+		proxyLogin: config.login,
+		proxyPassword: config.password,
+	});
 }
 
 export default CapMonster;

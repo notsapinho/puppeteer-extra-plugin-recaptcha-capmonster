@@ -1,6 +1,15 @@
 export interface CapMonsterOptions {
 	pollingInterval: number;
 	retries: number;
+	proxyConfig?: ProxyConfig;
+}
+
+export interface ProxyConfig {
+	type: "http" | "https" | "socks4" | "socks5";
+	address: string;
+	port: number;
+	login: string;
+	password: string;
 }
 
 export interface CapMonsterApiBaseResult {
